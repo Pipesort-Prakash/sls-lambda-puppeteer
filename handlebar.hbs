@@ -1,0 +1,424 @@
+<html lang="en">
+<head>
+    <title>Consult Report</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        p {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Style the header */
+        .header {
+            display: flex;
+            height: 100px;
+            align-items: center;
+            justify-content: space-between;
+            background: #52c9ed;
+        }
+
+        .headerConsultName {
+            text-align: right;
+            font-size: 40px;
+            color: white;
+            padding-right: 10px;
+        }
+
+        .headerLogo {
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: white;
+            resize: none;
+        }
+
+        .mainContainer {
+            width: 100%;
+            height: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .personalDetailsContainer {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .personalDetailsContainer,
+        .personalDetailsContainer td {
+            border: 1px dashed #dfdddd;
+            border-collapse: collapse;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .personalDetailsValue {
+            padding-left: 10px;
+            color: #52c9ed
+        }
+
+        .diseaseDetailsContainer {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .diseaseDetailsContainer,
+        .diseaseDetailsContainer td {
+            border: 1px solid #dfdddd;
+            border-collapse: collapse;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .diseaseName {
+            color: #52c9ed;
+            padding-left: 10px;
+            font-weight: 900
+        }
+
+        .diseaseDescription {
+            font-size: 14px;
+            padding-left: 5px;
+            line-height: 20px
+        }
+
+        .pastMedicalInformationContainer {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .pastMedicalInfoTable {
+            width: 100%;
+        }
+
+        .pastMedicalInfoTable,
+        .pastMedicalInfoTable td {
+            border: 1px dashed #dfdddd;
+            border-collapse: collapse;
+            padding: 20px 15px 20px 15px;
+            text-align: left;
+        }
+
+        .pastMedicalInfoTable td {
+            width: 50%;
+            min-height: 100px;
+        }
+
+        .pastMedicalInfoTable p {
+            text-align: justify;
+            font-size: 14px;
+        }
+
+        .pastMedicalInfoTable p b {
+            color: #52c9ed;
+        }
+
+        .diseaseTypeTable {
+            width: 100%;
+        }
+
+        .diseaseTypeTable .leftColumn {
+            width: 15%;
+            background: #dceef3;
+            border-right: 1px dashed #52c9ed;
+            text-align: center;
+            color: #52c9ed;
+        }
+
+        .diseaseTypeTable .rightColumn {
+            width: 85%;
+            background: rgb(233, 231, 231);
+            text-align: left;
+        }
+
+        .rightColumnList {
+            width: 95%;
+            height: 100%;
+            list-style-type: none;
+        }
+
+        .rightColumnList li {
+            counter-increment: step-counter;
+            min-height: 100px;
+            margin-bottom: 20px;
+        }
+
+        .rightColumnList li::before {
+            content: counter(step-counter);
+            margin-right: 10px;
+            font-size: 80%;
+            background-color: rgb(180, 180, 180);
+            color: white;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 11px;
+        }
+
+        .rightColumnListHeader {
+            color: black;
+            font-weight: 900;
+        }
+
+        .rightColumnListDescription {
+            margin-left: 45px;
+            padding: 5px;
+            font-size: 14px;
+            text-indent: 30px;
+            text-align: justify;
+        }
+
+        .treatmentDescription {
+            margin-top: 15px;
+            min-height: 50px;
+            padding: 10px;
+            border: 1px dashed #dfdddd;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .photosContainer {
+            width: 100%;
+            height: 300px;
+            margin-top: 15px;
+        }
+
+        .photosTable {
+            width: 100%;
+            height: 100%;
+            border: 1px dashed #dfdddd;
+            border-collapse: collapse;
+        }
+
+        .photosTable td,
+        .photosTable th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .pictureColumn {
+            width: 24%;
+            height: 300px;
+        }
+
+        .currentMedicalInfo {
+            color: #52c9ed;
+        }
+    </style>
+</head>
+
+	<body>
+		<div id="handlebar">
+		  	<div class="header">
+		        <table style="width:100%; height: 100%;">
+		            <tr>
+                        <td style="width:20%; height: 100%; background: white;">
+                            <center>
+                                <img src="{{{logo}}}" alt="logo" class="headerLogo" width="147px" height="auto" />
+                            <center>
+                        </td>
+		                <td style="width:85%; text-align: right">
+		                    <span class="headerConsultName">{{patientname}}</span>
+		                </td>
+		            </tr>
+		        </table>
+	    	</div>
+	    	<div class="mainContainer">
+	    		<div>
+		            <table class="personalDetailsContainer">
+		                <tr>
+		                    <td colspan="2">Patient’s Name: <span class="personalDetailsValue">{{patientname}}</span></td>
+		                    <td>Patient ID: <span class="personalDetailsValue">123456</span></td>
+		                </tr>
+		                <tr>
+		                    <td>Visit Node: <span class="personalDetailsValue">{{createdAt}}</span></td>
+		                    <td>Dob: <span class="personalDetailsValue">{{patientDob}}</span></td>
+		                    <td>Sex: <span class="personalDetailsValue">{{gender}}</span></td>
+		                </tr>
+		                <tr>
+		                    <td colspan="3">Phone Number: <span class="personalDetailsValue">{{phone_number}}</span></td>
+		                </tr>
+                        {{#if patientAddress }}
+                         <tr>
+                            <td colspan="3">Other info: <span class="personalDetailsValue">{{patientAddress}}</span></td>
+                        </tr>
+                        {{/if}}
+		            </table>
+		        </div>
+                <div>
+                    <table class="diseaseDetailsContainer">
+                        <tr>
+                            <td style="background: #eceaea;">Impression: <span class="diseaseName">
+                                {{#if consultDiagnosisData }}
+                                    {{#each consultDiagnosisData}}
+                                        {{this.impression}}
+                                    {{/each}}
+                                {{/if}}
+                            </span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: justify; min-height: 50px;">Impression Description: <span class="diseaseDescription">
+                                <ul>
+                                    {{#if consultDiagnosisData }}
+                                        {{#each consultDiagnosisData}}
+                                           <li>{{this.impressionDescription}}</li>
+                                        {{/each}}
+                                    {{/if}}
+                                </ul>
+                            </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="pastMedicalInformationContainer">
+                    <table class="pastMedicalInfoTable">
+                        <tr>
+                            <td>
+                                <p>
+                                    <span><b>Medical History: </b></span>
+                                    {{#if medical_issues }}
+                                        {{medical_issues}}
+                                    {{/if}}
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span><b>Medications: </b></span>
+                                    {{#if medication }}
+                                        {{medication}}
+                                    {{/if}}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+                                    <span><b>Allergies: </b></span>
+                                    {{#if allergy }}
+                                        {{allergy}}
+                                    {{/if}}
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span><b>Plastic Surgery History: </b></span>
+                                    {{#if surgeries }}
+                                        {{surgeries}}
+                                    {{/if}}
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="personalDetailsContainer">
+                        <tr>
+                            <td><p class="currentMedicalInfo">Current Medical Issue: </p>
+                                <p>{{#if currentMedicalIssue }}
+                                        {{currentMedicalIssue}}
+                                    {{/if}}
+                                </p></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="diseaseTypeTableContainer" style=" margin-top: 20px;">
+                    <table class="diseaseTypeTable">
+                        <tr style="min-height: 150px;">
+                            <td class="leftColumn">
+                                <h4>Plan</h4>
+                            </td>
+                            <td class="rightColumn">
+                            <span> 
+                            <ul>
+                                {{#if consultDiagnosisData }}
+                                        {{#each consultDiagnosisData}}
+                                           <li style=" margin-bottom: 5px;">{{this.plan}}</li>
+                                        {{/each}}
+                                {{/if}}
+                            </ul>
+                            </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="diseaseTypeTableContainer" style=" margin-top: 20px;">
+                    <table class="diseaseTypeTable">
+                        <tr style="min-height: 150px;">
+                            <td class="leftColumn">
+                                <h4>Side Effects</h4>
+                            </td>
+                            <td class="rightColumn">
+                            <span>
+                            <ul>
+                                {{#if consultDiagnosisData }}
+                                        {{#each consultDiagnosisData}}
+                                           <li style=" margin-bottom: 5px;">{{this.sideEffectsString}}</li>
+                                        {{/each}}
+                                {{/if}}
+                            </ul> 
+                            </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="diseaseTypeTableContainer" style=" margin-top: 20px;">
+                    <table class="diseaseTypeTable">
+                        <tr style="min-height: 150px;">
+                            <td class="leftColumn">
+                                <h4>Skin Care Instructions</h4>
+                            </td>
+                            <td class="rightColumn">
+                            <span>  
+                            <ul>
+                                {{#if consultDiagnosisData }}
+                                        {{#each consultDiagnosisData}}
+                                           <li style=" margin-bottom: 5px;">{{this.skinCareInstructions}}</li>
+                                        {{/each}}
+                                {{/if}}
+                            </ul> 
+                            </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="photosContainer">
+                    <table class="photosTable">
+                        <tr>
+                            <th colspan="4">Photos</th>
+                        </tr>
+                        <tr>
+                            {{#if url1 }}
+                                <td class="pictureColumn">
+                                    <img src="{{{url1}}}" alt="User Picture 1" width="100%" height="100%" />
+                                </td>
+                            {{/if}}
+
+                            {{#if url2 }}
+                                <td class="pictureColumn">
+                                    <img src="{{url2}}" alt="User Picture 2" width="100%" height="100%" />
+                                </td>
+                            {{/if}}
+
+                            {{#if url3 }}
+                                <td class="pictureColumn">
+                                    <img src="{{url3}}" alt="User Picture 3" width="100%" height="100%" />
+                                </td>
+                            {{/if}}
+
+                            {{#if url4 }}
+                                <td class="pictureColumn">
+                                    <img src="{{url4}}" alt="User Picture 4" width="100%" height="100%" />
+                                </td>
+                            {{/if}}
+                        </tr>
+                    </table>
+                </div>
+	    	</div>
+		</div>
+	</body>
+</html>
